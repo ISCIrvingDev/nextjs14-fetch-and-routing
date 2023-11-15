@@ -1,10 +1,12 @@
+import { AppReqResInRepository } from "@/shared/repositories/app.reqres-in.repository";
 import { IUserDetailsDto } from "./dtos/user-details.dto";
+// import { AppResponse } from "@/shared/models/app.response";
 
 class UserIdService {
-  async getUserDetails(id: number): Promise<IUserDetailsDto> {
-    const data = await fetch(`https://reqres.in/api/users/${id}`);
+  async getUserDetails(id: number): Promise</*AppResponse<*/IUserDetailsDto/*>*/> {
+    const response = await AppReqResInRepository.get</*AppResponse<*/IUserDetailsDto/*>*/>(`/users/${id}`);
 
-    const res: IUserDetailsDto = await data.json();
+    const res: /*AppResponse<*/IUserDetailsDto/*>*/ = await response.data;
     // console.log('Res: ', res);
 
     return res;
